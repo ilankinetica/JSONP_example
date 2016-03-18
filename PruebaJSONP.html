@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>img{ height: 100px; float: left; }</style>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<title>JSONP example</title>
+	</head>
+	<body>
+		<div id="images">
+		</div>
+		<script>
+			$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+			{ //los datos de lo que voya  buscar
+				tags: "dogs", 
+				tagmode: "any",
+				format: "json"
+			},
+			function(data) 
+			{
+				$.each(data.items, function(i,item)
+				{
+					$("<img/>").attr("src", item.media.m).appendTo("#images"); //lo agrego al div images
+					if ( i == 3 ) return false; //cuantos items voy a mostrar
+				});
+			});
+		</script>
+	</body>
+</html> 
